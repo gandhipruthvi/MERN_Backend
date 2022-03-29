@@ -6,9 +6,13 @@ const userRoute = require("./routes/userRoutes");
 const productRoute = require("./routes/productRoutes");
 const authRoute = require("./routes/authRoutes");
 const app = express();
+var multer = require("multer");
+var upload = multer();
 
 app.use(cors());
+app.use(upload.array());
 app.use(express.static("public"));
+
 //connect to db
 connectDB();
 
