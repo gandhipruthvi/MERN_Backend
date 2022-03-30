@@ -1,3 +1,4 @@
+//------------------Import------------------
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
@@ -9,14 +10,14 @@ const feedbackRoute = require("./routes/feedbackRoutes");
 const faqRoute = require('./routes/faqRoutes');
 const app = express();
 
-app.use(cors());
-app.use(express.static("public"));
-
 //--------------Connect TO Database-----------------
 connectDB();
 
 //---------------parse the response--------------
 app.use(express.json());
+app.use(cors());
+app.use(express.static("public"));
+
 
 //-------------Forward to different Routes-------------
 app.use("/api/user", userRoute);
