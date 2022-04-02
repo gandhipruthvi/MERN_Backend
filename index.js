@@ -9,9 +9,9 @@ const productRoute = require("./routes/productRoutes");
 const authRoute = require("./routes/authRoutes");
 const feedbackRoute = require("./routes/feedbackRoutes");
 const faqRoute = require('./routes/faqRoutes');
+const { Server } = require('socket.io');
 const app = express();
 const http = require("http").createServer(app);
-
 
 //--------------Connect TO Database-----------------
 connectDB();
@@ -36,5 +36,3 @@ http.listen(PORT, () => {
 });
 
 chat(http);
-
-
