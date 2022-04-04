@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-//--------------Import-------------
->>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
@@ -10,15 +6,9 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
-<<<<<<< HEAD
 
 let User = require("../models/User");
 
-=======
-let User = require("../models/User");
-
-//-----------------Authenticate user-------------
->>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -80,8 +70,4 @@ router.post(
   }
 );
 
-<<<<<<< HEAD
-=======
-//----------------Export----------------
->>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 module.exports = router;
