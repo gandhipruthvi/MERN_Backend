@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//--------------------Import---------------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -22,7 +26,10 @@ router.post(
     }),
   ],
   async (req, res) => {
+<<<<<<< HEAD
     console.log(req.body);
+=======
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -43,7 +50,10 @@ router.post(
           username: newUser.username,
         },
       };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
@@ -58,6 +68,7 @@ router.post(
     }
   }
 );
+<<<<<<< HEAD
 
 //route Put api/user
 //desc Update user
@@ -92,4 +103,28 @@ router.put(
   }
 );
 
+=======
+//route Post api/user
+//desc Update user
+//access public
+router.put("/", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.id);
+    if (!user) {
+      return res.status(404).send("user not found");
+    }
+    user.email = req.body.email;
+    user.date = req.body.date;
+    user.address = req.body.address;
+    user.phone = req.body.phone;
+    user.photo = req.body.photo;
+    await user.save();
+    res.send(user);
+  } catch (err) {
+    return res.status(500).send("Server error");
+  }
+});
+
+//----------------Export-------------------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 module.exports = router;

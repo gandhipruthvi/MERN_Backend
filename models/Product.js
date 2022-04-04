@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+=======
+//--------------Import-------------
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+//---------------Define Schema----------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 const productSchema = Schema({
   title: {
     type: String,
@@ -23,4 +31,8 @@ const productSchema = Schema({
   },
 });
 
+<<<<<<< HEAD
+=======
+//---------------Export----------------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 module.exports = mongoose.model("Product", productSchema);

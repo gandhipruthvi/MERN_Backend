@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+//--------------------Import-----------------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -103,4 +107,8 @@ router.put(
   }
 );
 
+<<<<<<< HEAD
+=======
+//--------------------Export----------------
+>>>>>>> 463788e6b79ef3254d59b7ebd686e8bd4ee8acd7
 module.exports = router;
