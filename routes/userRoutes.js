@@ -1,3 +1,4 @@
+//--------------------Import---------------
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -22,7 +23,6 @@ router.post(
     }),
   ],
   async (req, res) => {
-    console.log(req.body);
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -43,7 +43,6 @@ router.post(
           username: newUser.username,
         },
       };
-
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
@@ -58,38 +57,26 @@ router.post(
     }
   }
 );
-
-//route Put api/user
+//route Post api/user
 //desc Update user
 //access public
-router.put(
-  "/",
-  [
-    check("name", "Name is required").notEmpty(),
-    check("email", "Email is required").notEmpty().isEmail(),
-    check("phone", "Phone should be 10 digits").isLength({
-      min: 10,
-      max: 10,
-    }),
-    check("address", "Address is required").notEmpty(),
-  ],
-  authMiddleware,
-  async (req, res) => {
-    try {
-      const user = await User.findById(req.body._id);
-      if (!user) {
-        return res.status(404).send("user not found");
-      }
-      user.name = req.body.name;
-      user.email = req.body.email;
-      user.address = req.body.address;
-      user.phone = req.body.phone;
-      await user.save();
-      res.send(user);
-    } catch (err) {
-      return res.status(500).send("Server error");
+router.put("/", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.id);
+    if (!user) {
+      return res.status(404).send("user not found");
     }
+    user.email = req.body.email;
+    user.date = req.body.date;
+    user.address = req.body.address;
+    user.phone = req.body.phone;
+    user.photo = req.body.photo;
+    await user.save();
+    res.send(user);
+  } catch (err) {
+    return res.status(500).send("Server error");
   }
-);
+});
 
+//----------------Export-------------------
 module.exports = router;
