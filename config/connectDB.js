@@ -1,5 +1,9 @@
+
+//--------------Import-------------------
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+
+//--------------Define connection to Database----------------
 
 const connectDB = async () => {
   try {
@@ -12,5 +16,8 @@ const connectDB = async () => {
     console.log("unable to connect" + error.message);
   }
 };
+
+
+//--------------Export--------------------
 
 module.exports = connectDB;

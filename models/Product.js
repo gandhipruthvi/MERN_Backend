@@ -1,5 +1,9 @@
+
+//--------------Import-------------
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+//---------------Define Schema----------
 
 const productSchema = Schema({
   title: {
@@ -22,5 +26,8 @@ const productSchema = Schema({
     default: Date.now(),
   },
 });
+
+
+//---------------Export----------------
 
 module.exports = mongoose.model("Product", productSchema);

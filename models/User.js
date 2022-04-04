@@ -1,5 +1,9 @@
+
+//-----------------Import---------------
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+//---------------Define Schema-----------
 
 const userSchema = Schema({
   name: {
@@ -34,5 +38,8 @@ const userSchema = Schema({
     type: String,
   },
 });
+
+
+//------------Export---------------
 
 module.exports = mongoose.model("User", userSchema);

@@ -1,3 +1,6 @@
+
+//--------------------Import---------------
+
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -76,4 +79,7 @@ router.put("/", authMiddleware, async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
+
+
+//----------------Export-------------------
 module.exports = router;

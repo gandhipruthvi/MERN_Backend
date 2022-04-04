@@ -1,3 +1,6 @@
+
+//--------------Import-------------
+
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
@@ -6,8 +9,9 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
-
 let User = require("../models/User");
+
+//-----------------Authenticate user-------------
 
 router.get("/", authMiddleware, async (req, res) => {
   try {
@@ -69,5 +73,6 @@ router.post(
     }
   }
 );
+
 
 module.exports = router;

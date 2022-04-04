@@ -1,6 +1,9 @@
-const jwt = require("jsonwebtoken");
 
+//-----------Import-------------------
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
+//----------Define the Middleware------------
 
 module.exports = function (req, res, next) {
   const token = req.header("x-auth-token");
@@ -8,7 +11,9 @@ module.exports = function (req, res, next) {
     return res.status(400).json({ msg: "No token, authorization denied" });
   }
 
-  //verify token
+
+//-----------verify token------------
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
