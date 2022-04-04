@@ -14,7 +14,7 @@ const UserFeedback = require("../models/UserFeedback");
 //route Get api/userFeedback
 //desc Get all userFeedback
 //access public
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const userFb = await UserFeedback.find({});
     res.send(userFb);
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 //route Get api/userFeedback/:id
 //desc Get userFeedback by id
 //access public
-router.get("/:id", async (req, res) => {
+router.get("/:id",authMiddleware, async (req, res) => {
   try {
     const userFb = await Todo.findById(req.params.id);
     if (!userFb) {
