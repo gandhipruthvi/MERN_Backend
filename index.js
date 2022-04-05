@@ -12,10 +12,10 @@ const feedbackRoute = require("./routes/feedbackRoutes");
 const faqRoute = require("./routes/faqRoutes");
 const paymentRoute = require("./routes/paymentRoutes");
 const eventRoute = require("./routes/eventRoutes");
+const contactRoute = require("./routes/contactRoutes");
 const { Server } = require("socket.io");
 const app = express();
 const http = require("http").createServer(app);
-
 const registerRoutes = require("./routes/registerRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const user = require("./models/User");
@@ -46,6 +46,7 @@ app.use("/api/faqs", faqRoute);
 app.use("/api/Events", eventRoute);
 app.use("/api/registerUser", registerRoutes);
 app.use("/api/login", loginRoutes);
+app.use("/api/contact", contactRoute);
 
 //------------Listen server on port from environmental variable-----------------
 const PORT = process.env.PORT | 5000;
