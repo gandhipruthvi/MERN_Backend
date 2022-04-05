@@ -9,6 +9,7 @@ const productRoute = require("./routes/productRoutes");
 const authRoute = require("./routes/authRoutes");
 const feedbackRoute = require("./routes/feedbackRoutes");
 const faqRoute = require('./routes/faqRoutes');
+const paymentRoute = require('./routes/paymentRoutes');
 const { Server } = require('socket.io');
 const app = express();
 const http = require("http").createServer(app);
@@ -25,6 +26,7 @@ app.use(express.static("public"));
 //-------------Forward to different Routes-------------
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
+app.use("/api/payment", paymentRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/userFeedback", feedbackRoute);
 app.use('/api/faqs', faqRoute);
