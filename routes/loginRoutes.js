@@ -1,21 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
-require('dotenv').config();
+const { check, validationResult } = require("express-validator");
+require("dotenv").config();
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const authMiddleware = require('../middlewares/authMiddleware');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-let User = require('../models/userModel');
+let User = require("../models/User");
 
-router.get('/', authMiddleware, async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send('server error');
+    res.status(500).send("server error");
   }
 });
 
@@ -23,10 +23,10 @@ router.get('/', authMiddleware, async (req, res) => {
 //desc login user
 //access public
 router.post(
-  '/',
+  "/",
   [
-    check('email', 'Please enter valid email').isEmail(),
-    check('password', 'Password id required').exists(),
+    check("email", "Please enter valid email").isEmail(),
+    check("password", "Password id required").exists(),
   ],
   async (req, res) => {
     try {
@@ -40,13 +40,13 @@ router.post(
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ errors: 'invalid credentials' });
+        return res.status(400).json({ errors: "invalid credentials" });
       }
 
       // compare password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(400).json({ errors: 'invalid credentials 2' });
+        return res.status(400).json({ errors: "invalid credentials 2" });
       }
 
       const payload = {
@@ -66,7 +66,7 @@ router.post(
         }
       );
     } catch (err) {
-      return res.status(500).send('Server error');
+      return res.status(500).send("Server error");
     }
   }
 );
