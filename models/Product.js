@@ -1,8 +1,10 @@
+
 //--------------Import-------------
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //---------------Define Schema----------
+
 const productSchema = Schema({
   title: {
     type: String,
@@ -25,5 +27,7 @@ const productSchema = Schema({
   },
 });
 
+
 //---------------Export----------------
+
 module.exports = mongoose.model("Product", productSchema);
