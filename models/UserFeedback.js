@@ -1,8 +1,10 @@
+
 //------------Import--------------
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //-------------Define Schema------------
+
 const feedbackSchema = Schema({
   name: {
     type: String,
@@ -22,5 +24,5 @@ const feedbackSchema = Schema({
   },
 });
 
-//--------------Export----------------
+
 module.exports = mongoose.model("UserFeedback", feedbackSchema);
