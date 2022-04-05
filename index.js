@@ -15,6 +15,10 @@ const { Server } = require("socket.io");
 const app = express();
 const http = require("http").createServer(app);
 
+const registerRoutes =  require("./routes/registerRoutes");
+const loginRoutes = require("./routes/loginRoutes");
+const user = require("./models/User");
+
 app.use(cors());
 app.use(express.static("public"));
 //connect to db
@@ -38,6 +42,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/userFeedback", feedbackRoute);
 app.use("/api/faqs", faqRoute);
 app.use("/api/Events", eventRoute);
+app.use("/api/registerUser", registerRoutes);
+ app.use("/api/login", loginRoutes);
 
 //------------Listen server on port from environmental variable-----------------
 const PORT = process.env.PORT | 5000;
