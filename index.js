@@ -22,9 +22,6 @@ const user = require("./models/User");
 
 app.use(cors());
 app.use(express.static("public"));
-//connect to db
-connectDB();
-
 app.use(express.json());
 
 //--------------Connect TO Database-----------------

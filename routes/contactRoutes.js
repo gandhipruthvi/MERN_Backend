@@ -21,6 +21,7 @@ contactEmail.verify((error) => {
 router.post("/", (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
+
     const message = req.body.message;
     const mail = {
         from: name,
@@ -36,9 +37,17 @@ router.post("/", (req, res) => {
             console.log(error);
             return res.send('Error sending email');
         } else {
+            contactEmail.sendMail({
+                from: "bestbidapp@gmail.com",
+                to: email,
+                subject: "Submission was successful",
+                text: `Thank you for contacting us!\n\nForm details\nName: ${name}\n Email: ${email}\n Message: ${message}`
+            })
             console.log('Email sent: ' + info.response);
             return res.send('Email Sent');
+
         }
+
     });
 });
 
