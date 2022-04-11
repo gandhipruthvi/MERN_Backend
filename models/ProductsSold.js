@@ -4,25 +4,18 @@ const Schema = mongoose.Schema;
 
 //---------------Define Schema----------
 
-const productSchema = Schema({
-  title: {
+const productsSoldSchema = Schema({
+  productId: {
     type: String,
     require: true,
   },
-  description: {
+  userId: {
     type: String,
     require: true,
   },
   price: {
     type: String,
     require: true,
-  },
-  photo: {
-    type: String,
-  },
-  sold: {
-    type: String,
-    default: false,
   },
   date: {
     type: Date,
@@ -32,4 +25,4 @@ const productSchema = Schema({
 
 //---------------Export----------------
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("ProductSold", productsSoldSchema);

@@ -7,6 +7,8 @@ const chat = require("./controllers/chat");
 const connectDB = require("./config/connectDB");
 const userRoute = require("./routes/userRoutes");
 const productRoute = require("./routes/productRoutes");
+const bidRoutes = require("./routes/bidRoutes");
+const productsSoldRoutes = require("./routes/productsSoldRoutes");
 const authRoute = require("./routes/authRoutes");
 const feedbackRoute = require("./routes/feedbackRoutes");
 const faqRoute = require("./routes/faqRoutes");
@@ -39,6 +41,8 @@ app.use(express.static("public"));
 
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
+app.use("/api/productsSold", productsSoldRoutes);
+app.use("/api/bid", bidRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/userFeedback", feedbackRoute);
