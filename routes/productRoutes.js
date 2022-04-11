@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -27,7 +26,7 @@ router.get("/", authMiddleware, async (req, res) => {
 //access public
 router.get("/:id", authMiddleware, async (req, res) => {
   try {
-    const product = await Todo.findById(req.params.id);
+    const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).send("product not found");
     }
@@ -103,6 +102,5 @@ router.put(
     }
   }
 );
-
 
 module.exports = router;
