@@ -21,6 +21,13 @@ const http = require("http").createServer(app);
 const registerRoutes = require("./routes/registerRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const user = require("./models/User");
+const multer = require("multer");
+const bodyParser = require("body-parser");
+var forms = multer();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(forms.array());
 
 app.use(cors());
 app.use(express.static("public"));
