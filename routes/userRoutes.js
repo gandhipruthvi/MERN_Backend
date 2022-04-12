@@ -1,4 +1,3 @@
-
 //--------------------Import---------------
 
 const express = require("express");
@@ -64,10 +63,11 @@ router.post(
 //access public
 router.put("/", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.body.id);
+    const user = await User.findById(req.body._id);
     if (!user) {
       return res.status(404).send("user not found");
     }
+    user.name = req.body.name;
     user.email = req.body.email;
     user.date = req.body.date;
     user.address = req.body.address;
@@ -79,7 +79,6 @@ router.put("/", authMiddleware, async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
-
 
 //----------------Export-------------------
 module.exports = router;
