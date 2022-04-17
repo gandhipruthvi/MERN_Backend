@@ -58,6 +58,7 @@ router.post(
     }
   }
 );
+
 //route Post api/user
 //desc Update user
 //access public
@@ -72,7 +73,31 @@ router.put("/", authMiddleware, async (req, res) => {
     user.date = req.body.date;
     user.address = req.body.address;
     user.phone = req.body.phone;
-    user.photo = req.body.photo;
+    await user.save();
+    res.send(user);
+  } catch (err) {
+    return res.status(500).send("Server error");
+  }
+});
+
+//route Post api/user/uploadPicture
+//desc Update user profile picture
+//access public
+router.post("/uploadPicture", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body._id);
+    if (!user) {
+      return res.status(404).send("user not found");
+    }
+    const file = req.files.myFile;
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send("No files were uploaded.");
+    }
+    const path = "public/uploads/" + file.name;
+    file.mv(path, function (err) {
+      if (err) return res.status(500).send(err);
+    });
+    user.photo = file.name;
     await user.save();
     res.send(user);
   } catch (err) {

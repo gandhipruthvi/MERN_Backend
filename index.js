@@ -47,6 +47,7 @@ app.use(express.static("public"));
 //-------------Forward to different Routes-------------
 
 app.use("/api/user", userRoute);
+app.use("/api/user/uploadPicture", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/productsSold", productsSoldRoutes);
 app.use("/api/bid", bidRoutes);
