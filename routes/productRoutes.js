@@ -8,14 +8,38 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 let Product = require("../models/Product");
+let Bid = require("../models/Bid");
 
 //route Get api/products
 //desc Get all Products
 //access public
 router.get("/", async (req, res) => {
   try {
-    const products = await Product.find({});
-    res.send(products);
+    const products = await Product.find({ sold: "false" });
+    const productBids = [];
+    for (const product of products) {
+      let myPromise = new Promise((resolve, reject) => {
+        const bid = Bid.findOne({ productId: product.id }).sort({
+          date: -1,
+        });
+        resolve(bid);
+      });
+      const bid = await myPromise;
+      flag = false;
+      if (bid != null) {
+        if (
+          Math.floor(Math.abs(new Date() - new Date(bid.date)) / 60000) >= 120
+        ) {
+          flag = true;
+          product.sold = "true";
+          product.save();
+        }
+      }
+      if (!flag) {
+        productBids.push(product);
+      }
+    }
+    res.send(productBids);
   } catch (err) {
     return res.status(500).send("Server error");
   }
@@ -35,7 +59,6 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
-
 
 // router.get("/products_by_id", authMiddleware, async (req, res) => {
 //   try {
