@@ -12,7 +12,7 @@ let Product = require("../models/Product");
 //route Get api/products
 //desc Get all Products
 //access public
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const products = await Product.find({});
     res.send(products);
@@ -24,7 +24,7 @@ router.get("/", authMiddleware, async (req, res) => {
 //route Get api/product/:id
 //desc Get product by id
 //access public
-router.get("/:id", authMiddleware, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
@@ -36,6 +36,23 @@ router.get("/:id", authMiddleware, async (req, res) => {
   }
 });
 
+
+// router.get("/products_by_id", authMiddleware, async (req, res) => {
+//   try {
+
+//     productIds = req.query.id
+
+//     const product = await Product.find({ '_id': { $in: productIds } });
+//     if (!product) {
+//       return res.status(404).send("product not found");
+//     }
+//     res.send(product);
+
+//   } catch (err) {
+//     return res.status(500).send("Server error");
+//   }
+// });
+
 //route Post api/product
 //desc Insert product
 //access public
@@ -44,9 +61,8 @@ router.post(
   [
     check("title", "Title is required").not().isEmpty(),
     check("description", "Description is required").not().isEmpty(),
-    check("price", "Price cannot be 0").notEmpty().isInt({ min: 1 }),
+    check("price", "Price cannot be empty").notEmpty.isFloat({ decimal_digits: 2 }),
   ],
-  authMiddleware,
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -76,9 +92,8 @@ router.put(
   [
     check("title", "Title is required").not().isEmpty(),
     check("description", "Description is required").not().isEmpty(),
-    check("price", "Price cannot be 0").notEmpty().isInt({ min: 1 }),
+    check("price", "Price cannot be empty").notEmpty.isFloat({ decimal_digits: 2 }),
   ],
-  authMiddleware,
   async (req, res) => {
     try {
       const errors = validationResult(req);
