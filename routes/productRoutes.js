@@ -61,7 +61,8 @@ router.post(
   [
     check("title", "Title is required").not().isEmpty(),
     check("description", "Description is required").not().isEmpty(),
-    check("price", "Price cannot be empty").notEmpty.isFloat({ decimal_digits: 2 }),
+    check("price", "Price cannot be empty").not().isEmpty({ min: 1 }),
+    check("price", "Price can be float value").isFloat({ decimal_digits: 2 }),
   ],
   async (req, res) => {
     try {
@@ -92,7 +93,8 @@ router.put(
   [
     check("title", "Title is required").not().isEmpty(),
     check("description", "Description is required").not().isEmpty(),
-    check("price", "Price cannot be empty").notEmpty.isFloat({ decimal_digits: 2 }),
+    check("price", "Price cannot be empty").not().isEmpty({ min: 1 }),
+    check("price", "Price can be float value").isFloat({ decimal_digits: 2 }),
   ],
   async (req, res) => {
     try {
