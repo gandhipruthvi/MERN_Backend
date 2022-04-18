@@ -26,13 +26,13 @@ router.get("/", authMiddleware, async (req, res) => {
 //access public
 router.get("/:id", authMiddleware, async (req, res) => {
   try {
-    const productSold = await ProductsSold.findById(req.params.id);
+    const productSold = await ProductsSold.find({ userId: req.params.id });
     if (!productSold) {
-      return res.status(404).send("product not found");
+      return res.status(404).send("products not found");
     }
     res.send(productSold);
   } catch (err) {
-    return res.status(500).send("Server error");
+    return res.status(500).send(err);
   }
 });
 

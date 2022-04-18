@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 
 let Product = require("../models/Product");
 let Bid = require("../models/Bid");
+let ProductsSold = require("../models/ProductsSold");
 
 //route Get api/products
 //desc Get all Products
@@ -33,6 +34,11 @@ router.get("/", async (req, res) => {
           flag = true;
           product.sold = "true";
           product.save();
+          ProductsSold.create({
+            productId: bid.productId,
+            userId: bid.userId,
+            price: bid.bid,
+          });
         }
       }
       if (!flag) {

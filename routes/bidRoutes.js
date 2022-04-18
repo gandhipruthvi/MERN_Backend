@@ -6,8 +6,8 @@ require("dotenv").config();
 
 let Bid = require("../models/Bid");
 
-//route Get api/bid
-//desc Get all Bids
+//route Get api/bid/onProduct/id
+//desc Get highest bid on product
 //access public
 router.get("/onProduct/:id", authMiddleware, async (req, res) => {
   try {
@@ -23,12 +23,12 @@ router.get("/onProduct/:id", authMiddleware, async (req, res) => {
   }
 });
 
-//route Get api/bid/:id
-//desc Get Bid by id
+//route Get api/bid/byUser/:id
+//desc Get Bid by user
 //access public
-router.get("/:id", authMiddleware, async (req, res) => {
+router.get("/byUser/:id", authMiddleware, async (req, res) => {
   try {
-    const bid = await Bid.findById(req.params.id);
+    const bid = await Bid.find({ user: req.params.id }).sort({ date: -1 });
     if (!bid) {
       return res.status(404).send("bid not found");
     }
@@ -53,6 +53,21 @@ router.post(
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
+      }
+
+      let myPromise = new Promise((resolve, reject) => {
+        const bid = Bid.findOne({ productId: req.body.productId }).sort({
+          date: -1,
+        });
+        resolve(bid);
+      });
+      const bid = await myPromise;
+      if (bid != null) {
+        if (bid.bid > req.body.bid) {
+          return res
+            .status(404)
+            .send("New bid amount cannot be smaller than the last bid");
+        }
       }
 
       const newBid = await Bid.create({
