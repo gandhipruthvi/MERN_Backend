@@ -28,7 +28,7 @@ router.get("/onProduct/:id", authMiddleware, async (req, res) => {
 //access public
 router.get("/byUser/:id", authMiddleware, async (req, res) => {
   try {
-    const bid = await Bid.find({ user: req.params.id }).sort({ date: -1 });
+    const bid = await Bid.find({ userId: req.params.id }).sort({ date: -1 });
     if (!bid) {
       return res.status(404).send("bid not found");
     }
