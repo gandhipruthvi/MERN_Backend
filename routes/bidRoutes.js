@@ -9,10 +9,15 @@ let Bid = require("../models/Bid");
 //route Get api/bid
 //desc Get all Bids
 //access public
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/onProduct/:id", authMiddleware, async (req, res) => {
   try {
-    const bids = await Bid.find({});
-    res.send(bids);
+    const bid = await Bid.findOne({ productId: req.params.id }).sort({
+      date: -1,
+    });
+    if (!bid) {
+      return res.status(404).send("bid not found");
+    }
+    res.send(bid);
   } catch (err) {
     return res.status(500).send("Server error");
   }
@@ -25,7 +30,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const bid = await Bid.findById(req.params.id);
     if (!bid) {
-      return res.status(404).send("product not found");
+      return res.status(404).send("bid not found");
     }
     res.send(bid);
   } catch (err) {
@@ -40,8 +45,7 @@ router.post(
   "/",
   [
     check("productId", "Product Id is required").notEmpty(),
-    check("userId", "User Id is required").notEmpty(),
-    check("price", "Bid price is required").notEmpty().isInt({ min: 1 }),
+    check("bid", "Bid price is required").notEmpty().isInt({ min: 1 }),
   ],
   authMiddleware,
   async (req, res) => {
