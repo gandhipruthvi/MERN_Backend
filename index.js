@@ -42,6 +42,15 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  try {
+    res.send("Hello, World!");
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).json({ error: "SERVER ERROR: " + err.message });
+  }
+});
+
 //-------------Forward to different Routes-------------
 
 app.use("/api/user", userRoute);
