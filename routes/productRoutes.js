@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     for (const product of products) {
       let myPromise = new Promise((resolve, reject) => {
         const bid = Bid.findOne({ productId: product.id }).sort({
-          date: -1,
+          bid: -1,
         });
         resolve(bid);
       });

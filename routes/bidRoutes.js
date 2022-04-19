@@ -13,7 +13,6 @@ router.get("/onProduct/:id", authMiddleware, async (req, res) => {
   try {
     const bid = await Bid.findOne({ productId: req.params.id }).sort({
       bid: -1,
-      date: -1,
     });
     if (!bid) {
       return res.status(404).send("bid not found");
